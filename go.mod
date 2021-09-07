@@ -18,4 +18,6 @@ require (
 	gopkg.in/yaml.v2 v2.3.0
 )
 
+replace github.com/deepmap/oapi-codegen => github.com/sebgl/oapi-codegen v1.8.2
+
 go 1.14
