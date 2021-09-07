@@ -235,13 +235,14 @@ func refPathToGoType(refPath string, local bool) (string, error) {
 		return "", fmt.Errorf("unsupported reference: %s", refPath)
 	}
 	remoteComponent, flatComponent := pathParts[0], pathParts[1]
+	goType, err := refPathToGoType("#"+flatComponent, false)
+	if err != nil {
+		return "", err
+	}
 	if goImport, ok := importMapping[remoteComponent]; !ok {
-		return "", fmt.Errorf("unrecognized external reference '%s'; please provide the known import for this reference using option --import-mapping", remoteComponent)
+		// no import mapping provided, consider the go type is in the same package and doesn't need to be imported
+		return goType, nil
 	} else {
-		goType, err := refPathToGoType("#"+flatComponent, false)
-		if err != nil {
-			return "", err
-		}
 		return fmt.Sprintf("%s.%s", goImport.Name, goType), nil
 	}
 }

@@ -172,6 +172,11 @@ func TestRefPathToGoType(t *testing.T) {
 			goType: "externalRef0.Foo",
 		},
 		{
+			name:   "remote-no-mapping-provided",
+			path:   "nomapping.json#/foo",
+			goType: "Foo",
+		},
+		{
 			name:   "url-root",
 			path:   "http://deepmap.com/doc.json#/foo_bar",
 			goType: "externalRef1.FooBar",
